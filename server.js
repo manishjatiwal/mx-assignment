@@ -28,7 +28,7 @@ server.get('/', (req, res) => {
 })
 
 server.get('/client', (req, res) => {
-  res.sendFile(path.join(__dirname, './build/client.html'))
+  res.sendFile(path.join(__dirname, './build/index.html'))
 })
 
 const PORT = process.env.PORT || 3000
