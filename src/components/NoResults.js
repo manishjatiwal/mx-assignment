@@ -30,7 +30,7 @@ function NoResults({ search }) {
     <Container>
       <div>
         <p>Oops! No Results Found</p>
-        <span>We couldn't find any results for 'asdfasdfasdf'.</span>
+        <span>We couldn't find any results for '{search}'.</span>
       </div>
     </Container>
   )
