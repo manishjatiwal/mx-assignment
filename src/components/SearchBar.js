@@ -22,11 +22,22 @@ const Container = styled.div`
       top: auto;
     }
   }
+
+  .cross-icon {
+    position: absolute;
+    font-size: 50px;
+    top: 0;
+    right: 20px;
+    color: #e6e6e6;
+    line-height: 30px;
+    z-index: 10;
+    cursor: pointer;
+  }
 `
 
 const Input = styled.input`
   position: relative;
-  width: 100%;
+  width: calc(100% - 52px);
   height: 100%;
   font-size: 48px;
   font-weight: 600;
@@ -43,7 +54,7 @@ const Placeholder = styled.input`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: calc(100% - 52px);
   height: 100%;
   font-size: 48px;
   font-weight: 600;
@@ -63,23 +74,24 @@ const Placeholder = styled.input`
 function SearchBar({
   value,
   onChange = Function.prototype,
-  firstOption = 'Salt & pepper'
+  list = [],
+  onCrossClick = Function.prototype
 }) {
+  const { title: firstOption = '' } = list[0] || {}
   const placeholder = value ? firstOption : 'Search Videos'
 
   function onKeyDown(event) {
     if (event.code === 'ArrowRight') {
-      onChange(firstOption)
+      onChange(firstOption, true)
     }
   }
 
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown)
-
     return () => {
       document.removeEventListener('keydown', onKeyDown)
     }
-  }, [])
+  }, [firstOption])
 
   return (
     <Container>
@@ -95,6 +107,14 @@ function SearchBar({
           onChange(event.target.value)
         }}
       />
+      <span
+        className='cross-icon'
+        onClick={() => {
+          onCrossClick()
+        }}
+      >
+        ×
+      </span>
     </Container>
   )
 }
