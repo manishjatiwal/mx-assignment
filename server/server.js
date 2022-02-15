@@ -5,6 +5,7 @@ import ReactDOMServer from 'react-dom/server'
 import App from '../src'
 import template from './template'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { StaticRouter } from 'react-router-dom/server'
 
 const server = express()
 
@@ -13,9 +14,11 @@ server.use('/build', express.static(path.resolve(__dirname, '../build')))
 server.get('/', (req, res) => {
   const sheet = new ServerStyleSheet()
   const app = ReactDOMServer.renderToString(
-    <StyleSheetManager sheet={sheet.instance}>
-      <App />
-    </StyleSheetManager>
+    <StaticRouter location={req.url}>
+      <StyleSheetManager sheet={sheet.instance}>
+        <App />
+      </StyleSheetManager>
+    </StaticRouter>
   )
   const styleTags = sheet.getStyleTags()
   sheet.seal()

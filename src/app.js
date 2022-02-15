@@ -5,6 +5,7 @@ import Pills from './components/Pills'
 import Tabs from './components/Tabs'
 import Cards from './components/Cards'
 import datastore from '../datastore'
+import { useSearchParams } from 'react-router-dom'
 
 function App() {
   const [search, setSearch] = useState('')
@@ -12,6 +13,16 @@ function App() {
   const [list, setList] = useState([])
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState('all')
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    const query = searchParams.get('q')
+    setSearch(query)
+  }, [])
+
+  useEffect(() => {
+    setSearchParams({ q: search })
+  }, [search])
 
   useEffect(() => {
     function fetchData() {
