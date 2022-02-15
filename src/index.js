@@ -1,12 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import App from './app'
 import GlobalStyle from './styles'
 
-ReactDOM.render(
-  <>
-    <GlobalStyle />
-    <App />
-  </>,
-  document.getElementById('mx-assignment-container')
-)
+export default function () {
+  return (
+    <>
+      <GlobalStyle />
+      <App />
+    </>
+  )
+}
