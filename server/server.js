@@ -4,18 +4,31 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import App from '../src'
 import template from './template'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 
 const server = express()
 
+server.use('/build', express.static(path.resolve(__dirname, '../build')))
+
 server.get('/', (req, res) => {
-  const app = ReactDOMServer.renderToString(<App />)
-  const _html = template(app)
+  const sheet = new ServerStyleSheet()
+  const app = ReactDOMServer.renderToString(
+    <StyleSheetManager sheet={sheet.instance}>
+      <App />
+    </StyleSheetManager>
+  )
+  const styleTags = sheet.getStyleTags()
+  sheet.seal()
+  const script = '<script src="./build/server.js"></script>'
+  const _html = template(app, styleTags, script)
   return res.send(_html)
 })
 
-// server.get('/client', (req, res) => {
-//   res.sendFile(path.join(__dirname, './build/index.html'))
-// })
+server.get('/client', (req, res) => {
+  const script = '<script src="./build/client.js"></script>'
+  const _html = template('', '', script)
+  return res.send(_html)
+})
 
 const PORT = process.env.PORT || 3000
 server.listen(PORT, () => {
