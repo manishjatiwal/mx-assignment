@@ -3,7 +3,6 @@ const WebpackBar = require('webpackbar')
 
 const mode = process.env.NODE_ENV || 'development'
 const output = path.resolve(__dirname, './build')
-const port = process.env.PORT || 9000
 
 module.exports = {
   mode,
@@ -18,10 +17,5 @@ module.exports = {
   module: {
     rules: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }]
   },
-  plugins: [new WebpackBar()],
-  devServer: {
-    compress: true,
-    port,
-    open: true
-  }
+  plugins: [new WebpackBar()]
 }

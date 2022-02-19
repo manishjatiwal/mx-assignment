@@ -41,7 +41,6 @@ function App() {
     }
     fetchData()
   }, [search, retainData])
-
   return (
     <>
       <Header>

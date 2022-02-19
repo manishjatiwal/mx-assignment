@@ -24,7 +24,7 @@ const Container = styled.div`
   }
 `
 
-function NoResults({ search }) {
+function NoResults({ search = '' }) {
   if (search.length < 2) return null
   return (
     <Container>

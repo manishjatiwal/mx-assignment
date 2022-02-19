@@ -37,7 +37,7 @@ const Tile = styled.div`
   );
 `
 
-function Cards({ list = [], category, search }) {
+function Cards({ list = [], category, search = '' }) {
   let filtered
 
   if (category === 'all') filtered = list
